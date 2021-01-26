@@ -425,25 +425,14 @@ else{
 
 waz*kopiuj_weza(waz*snake){
     waz *zwrot = (waz *)malloc(sizeof(waz));
-    zwrot=NULL;
-    while (snake != NULL)
-    {
-    waz *czlon = (waz *)malloc(sizeof(waz));
-    czlon->r=snake->r;
-    czlon->c=snake->c;
-    if (zwrot==NULL){
-    zwrot=czlon;
-    }
-    else{
-        while (zwrot->nast != NULL)
-            {
-            zwrot = zwrot->nast;
-            }
-        zwrot = czlon;
-        
-    }
-    snake = snake->nast; 
-    }
+    if(snake == NULL)
+        printf("BŁĄD! Kopiowana struktura jest pusta\n");
+    //zwrot=snake;
+    printf("przed memcpy\n");
+    memcpy(zwrot,snake, sizeof(waz));
+    printf("po memcpy\n");
+    
+    printf("snake(c):%d, zwrot(c):%d \n",snake->c, zwrot->c);
     return zwrot;
 }
 
@@ -470,6 +459,7 @@ void ruszanko(char kierunek, baza *Sbaza)
 {
     baza*kopia=kopiuj_baze(Sbaza);
     printf("lista w kopii waz1:\n");
+
     pokaz_liste_wenza(kopia->waz1);
     printf("lista w kopii waz2:\n");
     pokaz_liste_wenza(kopia->waz2);
