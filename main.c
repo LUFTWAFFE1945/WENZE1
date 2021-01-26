@@ -17,8 +17,7 @@ for(int p=0;p<10;p++){
     ruch*lista;
     lista=generuj_liste_ruchow(wszystko,wszystko->waz1);
     pokaz_liste_ruchow(lista);
-    ruszanko('D',wszystko);
-    uzupelnij_plansze_wenzami(wszystko);
+    ruszanko('D',wszystko);    
     wypisz(wszystko->plansza);
     } 
      

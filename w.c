@@ -424,15 +424,14 @@ void ruszanko(char kierunek, baza *Sbaza)
         else if(kierunek=='L'){
         lewo(Sbaza,teraz);
         }
-        else if(kierunek=='D'){
+        else if(kierunek=='D'){ 
        dol(Sbaza,teraz);
         }
         else if(kierunek=='P'){
        prawo(Sbaza,teraz);
         }
-
-
-
+    uzupelnij_plansze_wenzami(Sbaza);
+}
 
 
 
