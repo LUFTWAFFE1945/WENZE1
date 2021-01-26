@@ -1,125 +1,126 @@
 #include "w.h"
 
-waz *tworz_czlon(int r, int c)
+waz *tworz_glowe_poczatkowa(int r, int c)
 {
     waz *snake = (waz *)malloc(sizeof(waz));
     snake->r = r;
     snake->c = c;
     snake->nast = NULL;
     snake->poprz = NULL;
+
     return snake;
 }
 
 baza *tworzymy_baze()
 {
     baza *Sbaza = (baza *)malloc(sizeof(baza));
-    Sbaza->waz1 = tworz_czlon(0, 0);
-    Sbaza->waz2 = tworz_czlon(M - 1, N - 1);
+    Sbaza->waz1 = tworz_glowe_poczatkowa(0, 0);
+    Sbaza->waz2 = tworz_glowe_poczatkowa(M - 1, N - 1);
     Sbaza->lista = generuj_liste_ruchow(Sbaza, Sbaza->waz1);
     Sbaza->kolejka = 1;
     return Sbaza;
 }
 
-ruch *generuj_liste_ruchow(baza *wszystko, waz *snake)
+ruch *generuj_liste_ruchow(baza*wszystko,waz *snake)
 {
     ruch *lista = (ruch *)malloc(sizeof(ruch));
     if (snake->r != 0)
-        if (wszystko->plansza[snake->r - 1][snake->c] != 'X')
-            if (wszystko->plansza[snake->r - 1][snake->c] != 'Y')
+    if(wszystko->plansza[snake->r-1][snake->c]!='X')
+    if(wszystko->plansza[snake->r-1][snake->c]!='Y')
+    {
+        if (lista != NULL)
+        {
+            ruch *zaczep = lista;
+            while (zaczep->nast != NULL)
             {
-                if (lista != NULL)
-                {
-                    ruch *zaczep = lista;
-                    while (zaczep->nast != NULL)
-                    {
-                        zaczep = zaczep->nast;
-                    }
-                    ruch *doczep = (ruch *)malloc(sizeof(ruch));
-                    zaczep->nast = doczep;
-                    doczep->poprz = zaczep;
-                    doczep->nast = NULL;
-                    doczep->kierunek = 'w';
-                }
-                else
-                {
-                    lista->kierunek = 'w';
-                    lista->nast = NULL;
-                    lista->poprz = NULL;
-                }
+                zaczep = zaczep->nast;
             }
+            ruch *doczep = (ruch *)malloc(sizeof(ruch));
+            zaczep->nast = doczep;
+            doczep->poprz = zaczep;
+            doczep->nast = NULL;
+            doczep->kierunek = 'w';
+        }
+        else
+        {
+            lista->kierunek = 'w';
+            lista->nast = NULL;
+            lista->poprz = NULL;
+        }
+    }
     if (snake->r != M - 1)
-        if (wszystko->plansza[snake->r + 1][snake->c] != 'X')
-            if (wszystko->plansza[snake->r + 1][snake->c] != 'Y')
+    if(wszystko->plansza[snake->r+1][snake->c]!='X')
+    if(wszystko->plansza[snake->r+1][snake->c]!='Y')
+    {
+        if (lista != NULL)
+        {
+            ruch *zaczep;
+            zaczep = lista;
+            while (zaczep->nast != NULL)
             {
-                if (lista != NULL)
-                {
-                    ruch *zaczep;
-                    zaczep = lista;
-                    while (zaczep->nast != NULL)
-                    {
-                        zaczep = zaczep->nast;
-                    }
-                    ruch *doczep = (ruch *)malloc(sizeof(ruch));
-                    zaczep->nast = doczep;
-                    doczep->poprz = zaczep;
-                    doczep->nast = NULL;
-                    doczep->kierunek = 's';
-                }
-                else
-                {
-                    lista->kierunek = 's';
-                    lista->nast = NULL;
-                    lista->poprz = NULL;
-                }
+                zaczep = zaczep->nast;
             }
+            ruch *doczep = (ruch *)malloc(sizeof(ruch));
+            zaczep->nast = doczep;
+            doczep->poprz = zaczep;
+            doczep->nast = NULL;
+            doczep->kierunek = 's';
+        }
+        else
+        {
+            lista->kierunek = 's';
+            lista->nast = NULL;
+            lista->poprz = NULL;
+        }
+    }
     if (snake->c != 0)
-        if (wszystko->plansza[snake->r][snake->c - 1] != 'X')
-            if (wszystko->plansza[snake->r][snake->c - 1] != 'Y')
+    if(wszystko->plansza[snake->r][snake->c-1]!='X')
+    if(wszystko->plansza[snake->r][snake->c-1]!='Y')
+    {
+        if (lista != NULL)
+        {
+            ruch *zaczep = lista;
+            while (zaczep->nast != NULL)
             {
-                if (lista != NULL)
-                {
-                    ruch *zaczep = lista;
-                    while (zaczep->nast != NULL)
-                    {
-                        zaczep = zaczep->nast;
-                    }
-                    ruch *doczep = (ruch *)malloc(sizeof(ruch));
-                    zaczep->nast = doczep;
-                    doczep->poprz = zaczep;
-                    doczep->nast = NULL;
-                    doczep->kierunek = 'a';
-                }
-                else
-                {
-                    lista->kierunek = 'a';
-                    lista->nast = NULL;
-                    lista->poprz = NULL;
-                }
+                zaczep = zaczep->nast;
             }
+            ruch *doczep = (ruch *)malloc(sizeof(ruch));
+            zaczep->nast = doczep;
+            doczep->poprz = zaczep;
+            doczep->nast = NULL;
+            doczep->kierunek = 'a';
+        }
+        else
+        {
+            lista->kierunek = 'a';
+            lista->nast = NULL;
+            lista->poprz = NULL;
+        }
+    }
     if (snake->c != N - 1)
-        if (wszystko->plansza[snake->r][snake->c + 1] != 'X')
-            if (wszystko->plansza[snake->r][snake->c + 1] != 'Y')
+    if(wszystko->plansza[snake->r][snake->c+1]!='X')
+    if(wszystko->plansza[snake->r][snake->c+1]!='Y')
+    {
+        if (lista != NULL)
+        {
+            ruch *zaczep = lista;
+            while (zaczep->nast != NULL)
             {
-                if (lista != NULL)
-                {
-                    ruch *zaczep = lista;
-                    while (zaczep->nast != NULL)
-                    {
-                        zaczep = zaczep->nast;
-                    }
-                    ruch *doczep = (ruch *)malloc(sizeof(ruch));
-                    zaczep->nast = doczep;
-                    doczep->poprz = zaczep;
-                    doczep->nast = NULL;
-                    doczep->kierunek = 'd';
-                }
-                else
-                {
-                    lista->kierunek = 'd';
-                    lista->nast = NULL;
-                    lista->poprz = NULL;
-                }
+                zaczep = zaczep->nast;
             }
+            ruch *doczep = (ruch *)malloc(sizeof(ruch));
+            zaczep->nast = doczep;
+            doczep->poprz = zaczep;
+            doczep->nast = NULL;
+            doczep->kierunek = 'd';
+        }
+        else
+        {
+            lista->kierunek = 'd';
+            lista->nast = NULL;
+            lista->poprz = NULL;
+        }
+    }
     return (lista);
 }
 
@@ -137,14 +138,15 @@ int dlugosc(waz *tesciowa)
 
 int ocena(baza *wszystko)
 { //1 kiedy wygrywa 1(x), 2 kiedy wygrywa(y) 2, 3 kiedy remis
-    int przewaga = 0;
+    int przewaga=0;
     if (wszystko->kolejka % 2 == 1) //zaczyna waz 1
-    {                               //rusza sie pierwszy jak nieparzyste
-        przewaga = dlugosc(wszystko->waz2) - dlugosc(wszystko->waz1);
+    { //rusza sie pierwszy jak nieparzyste
+        przewaga=dlugosc(wszystko->waz2)-dlugosc(wszystko->waz1);
+        
     }
     if (wszystko->kolejka % 2 == 0)
     { //rusza sie drugi jak parzyste
-        przewaga = dlugosc(wszystko->waz1) - dlugosc(wszystko->waz2);
+        przewaga=dlugosc(wszystko->waz1)-dlugosc(wszystko->waz2);
     }
     return przewaga;
 }
@@ -254,270 +256,237 @@ void pokaz_liste_ruchow(ruch *tesciowa)
     }
 }
 
-int gora(baza *wszystko, waz *snake)
-{
+int gora(baza*wszystko,waz*snake){
 
-    if (wszystko->plansza[snake->r - 1][snake->c] == '*')
-    {
-        printf("+1 byczku\n");
-        waz *stara_glowa = snake;
-        waz *nowa_glowa = (waz *)malloc(sizeof(waz));
-        nowa_glowa->r = stara_glowa->r - 1;
-        nowa_glowa->c = stara_glowa->c;
-        nowa_glowa->nast = stara_glowa;
-        stara_glowa->poprz = nowa_glowa;
-        nowa_glowa->poprz = NULL;
+if(wszystko->plansza[snake->r-1][snake->c]=='*'){
+printf("+1 byczku\n");
+    waz*stara_glowa=snake;
+    waz*nowa_glowa = (waz*) malloc(sizeof(waz));
+    nowa_glowa->r = stara_glowa->r-1;
+    nowa_glowa->c = stara_glowa->c;
+    nowa_glowa->nast = stara_glowa; 
+    stara_glowa->poprz = nowa_glowa;
+    nowa_glowa->poprz = NULL;
         if (wszystko->kolejka % 2 == 1) //zaczyna waz 1
-        {                               //rusza sie pierwszy jak nieparzyste
-            wszystko->waz1 = nowa_glowa;
-        }
-        if (wszystko->kolejka % 2 == 0)
-        { //rusza sie drugi jak parzyste
-            wszystko->waz2 = nowa_glowa;
-        }
+    { //rusza sie pierwszy jak nieparzyste
+        wszystko->waz1=nowa_glowa;
+        
     }
-    else
-    {
-        waz *stara_glowa = snake;
-        waz *nowa_glowa = (waz *)malloc(sizeof(waz));
-        nowa_glowa->r = stara_glowa->r - 1;
-        nowa_glowa->c = stara_glowa->c;
-        nowa_glowa->nast = stara_glowa;
-        stara_glowa->poprz = nowa_glowa;
-        nowa_glowa->poprz = NULL;
+    if (wszystko->kolejka % 2 == 0)
+    { //rusza sie drugi jak parzyste
+        wszystko->waz2=nowa_glowa;
+    }
+    }
+else{ 
+    waz*stara_glowa=snake;
+    waz*nowa_glowa = (waz*) malloc(sizeof(waz));
+    nowa_glowa->r = stara_glowa->r-1;
+    nowa_glowa->c = stara_glowa->c;
+    nowa_glowa->nast = stara_glowa; 
+    stara_glowa->poprz = nowa_glowa;
+    nowa_glowa->poprz = NULL;                    
         if (wszystko->kolejka % 2 == 1) //zaczyna waz 1
-        {                               //rusza sie pierwszy jak nieparzyste
-            wszystko->waz1 = nowa_glowa;
-        }
-        if (wszystko->kolejka % 2 == 0)
-        { //rusza sie drugi jak parzyste
-            wszystko->waz2 = nowa_glowa;
-        }
-        usun_ostatni_element(wszystko, snake);
+    { //rusza sie pierwszy jak nieparzyste
+        wszystko->waz1=nowa_glowa;
+        
+    }
+    if (wszystko->kolejka % 2 == 0)
+    { //rusza sie drugi jak parzyste
+        wszystko->waz2=nowa_glowa;
+    }
+    usun_ostatni_element(wszystko,snake);
     }
 }
 
-int dol(baza *wszystko, waz *snake)
-{
+int dol(baza*wszystko,waz*snake){
 
-    if (wszystko->plansza[snake->r + 1][snake->c] == '*')
-    {
-        printf("+1 byczku\n");
-        waz *stara_glowa = snake;
-        waz *nowa_glowa = (waz *)malloc(sizeof(waz));
-        nowa_glowa->r = stara_glowa->r + 1;
-        nowa_glowa->c = stara_glowa->c;
-        nowa_glowa->nast = stara_glowa;
-        stara_glowa->poprz = nowa_glowa;
-        nowa_glowa->poprz = NULL;
+if(wszystko->plansza[snake->r+1][snake->c]=='*'){
+printf("+1 byczku\n");
+    waz*stara_glowa=snake;
+    waz*nowa_glowa = (waz*) malloc(sizeof(waz));
+    nowa_glowa->r = stara_glowa->r+1;
+    nowa_glowa->c = stara_glowa->c;
+    nowa_glowa->nast = stara_glowa; 
+    stara_glowa->poprz = nowa_glowa;
+    nowa_glowa->poprz = NULL;
         if (wszystko->kolejka % 2 == 1) //zaczyna waz 1
-        {                               //rusza sie pierwszy jak nieparzyste
-            wszystko->waz1 = nowa_glowa;
-        }
-        if (wszystko->kolejka % 2 == 0)
-        { //rusza sie drugi jak parzyste
-            wszystko->waz2 = nowa_glowa;
-        }
+    { //rusza sie pierwszy jak nieparzyste
+        wszystko->waz1=nowa_glowa;
+        
     }
-    else
-    {
-        waz *stara_glowa = snake;
-        waz *nowa_glowa = (waz *)malloc(sizeof(waz));
-        nowa_glowa->r = stara_glowa->r + 1;
-        nowa_glowa->c = stara_glowa->c;
-        nowa_glowa->nast = stara_glowa;
-        stara_glowa->poprz = nowa_glowa;
-        nowa_glowa->poprz = NULL;
+    if (wszystko->kolejka % 2 == 0)
+    { //rusza sie drugi jak parzyste
+        wszystko->waz2=nowa_glowa;
+    }
+    }
+else{ 
+    waz*stara_glowa=snake;
+    waz*nowa_glowa = (waz*) malloc(sizeof(waz));
+    nowa_glowa->r = stara_glowa->r+1;
+    nowa_glowa->c = stara_glowa->c;
+    nowa_glowa->nast = stara_glowa; 
+    stara_glowa->poprz = nowa_glowa;
+    nowa_glowa->poprz = NULL;                    
         if (wszystko->kolejka % 2 == 1) //zaczyna waz 1
-        {                               //rusza sie pierwszy jak nieparzyste
-            wszystko->waz1 = nowa_glowa;
-        }
-        if (wszystko->kolejka % 2 == 0)
-        { //rusza sie drugi jak parzyste
-            wszystko->waz2 = nowa_glowa;
-        }
-        usun_ostatni_element(wszystko, snake);
+    { //rusza sie pierwszy jak nieparzyste
+        wszystko->waz1=nowa_glowa;
+        
+    }
+    if (wszystko->kolejka % 2 == 0)
+    { //rusza sie drugi jak parzyste
+        wszystko->waz2=nowa_glowa;
+    }
+    usun_ostatni_element(wszystko,snake);
     }
 }
 
-int lewo(baza *wszystko, waz *snake)
-{
+int lewo(baza*wszystko,waz*snake){
 
-    if (wszystko->plansza[snake->r][snake->c - 1] == '*')
-    {
-        printf("+1 byczku\n");
-        waz *stara_glowa = snake;
-        waz *nowa_glowa = (waz *)malloc(sizeof(waz));
-        nowa_glowa->r = stara_glowa->r;
-        nowa_glowa->c = stara_glowa->c - 1;
-        nowa_glowa->nast = stara_glowa;
-        stara_glowa->poprz = nowa_glowa;
-        nowa_glowa->poprz = NULL;
+if(wszystko->plansza[snake->r][snake->c-1]=='*'){
+printf("+1 byczku\n");
+    waz*stara_glowa=snake;
+    waz*nowa_glowa = (waz*) malloc(sizeof(waz));
+    nowa_glowa->r = stara_glowa->r;
+    nowa_glowa->c = stara_glowa->c-1;
+    nowa_glowa->nast = stara_glowa; 
+    stara_glowa->poprz = nowa_glowa;
+    nowa_glowa->poprz = NULL;
         if (wszystko->kolejka % 2 == 1) //zaczyna waz 1
-        {                               //rusza sie pierwszy jak nieparzyste
-            wszystko->waz1 = nowa_glowa;
-        }
-        if (wszystko->kolejka % 2 == 0)
-        { //rusza sie drugi jak parzyste
-            wszystko->waz2 = nowa_glowa;
-        }
+    { //rusza sie pierwszy jak nieparzyste
+        wszystko->waz1=nowa_glowa;
+        
     }
-    else
-    {
-        waz *stara_glowa = snake;
-        waz *nowa_glowa = (waz *)malloc(sizeof(waz));
-        nowa_glowa->r = stara_glowa->r;
-        nowa_glowa->c = stara_glowa->c - 1;
-        nowa_glowa->nast = stara_glowa;
-        stara_glowa->poprz = nowa_glowa;
-        nowa_glowa->poprz = NULL;
+    if (wszystko->kolejka % 2 == 0)
+    { //rusza sie drugi jak parzyste
+        wszystko->waz2=nowa_glowa;
+    }
+    }
+else{ 
+    waz*stara_glowa=snake;
+    waz*nowa_glowa = (waz*) malloc(sizeof(waz));
+    nowa_glowa->r = stara_glowa->r;
+    nowa_glowa->c = stara_glowa->c-1;
+    nowa_glowa->nast = stara_glowa; 
+    stara_glowa->poprz = nowa_glowa;
+    nowa_glowa->poprz = NULL;                    
         if (wszystko->kolejka % 2 == 1) //zaczyna waz 1
-        {                               //rusza sie pierwszy jak nieparzyste
-            wszystko->waz1 = nowa_glowa;
-        }
-        if (wszystko->kolejka % 2 == 0)
-        { //rusza sie drugi jak parzyste
-            wszystko->waz2 = nowa_glowa;
-        }
-        usun_ostatni_element(wszystko, snake);
+    { //rusza sie pierwszy jak nieparzyste
+        wszystko->waz1=nowa_glowa;
+        
+    }
+    if (wszystko->kolejka % 2 == 0)
+    { //rusza sie drugi jak parzyste
+        wszystko->waz2=nowa_glowa;
+    }
+    usun_ostatni_element(wszystko,snake);
     }
 }
-int prawo(baza *wszystko, waz *snake)
-{
+int prawo(baza*wszystko,waz*snake){
 
-    if (wszystko->plansza[snake->r][snake->c + 1] == '*')
-    {
-        printf("+1 byczku\n");
-        waz *stara_glowa = snake;
-        waz *nowa_glowa = (waz *)malloc(sizeof(waz));
-        nowa_glowa->r = stara_glowa->r;
-        nowa_glowa->c = stara_glowa->c + 1;
-        nowa_glowa->nast = stara_glowa;
-        stara_glowa->poprz = nowa_glowa;
-        nowa_glowa->poprz = NULL;
-        if (wszystko->kolejka % 2 == 1) //zaczyna waz 1
-        {                               //rusza sie pierwszy jak nieparzyste
-            wszystko->waz1 = nowa_glowa;
-        }
-        if (wszystko->kolejka % 2 == 0)
-        { //rusza sie drugi jak parzyste
-            wszystko->waz2 = nowa_glowa;
-        }
+if(wszystko->plansza[snake->r][snake->c+1]=='*'){
+printf("+1 byczku\n");
+    waz*stara_glowa=snake;
+    waz*nowa_glowa = (waz*) malloc(sizeof(waz));
+    nowa_glowa->r = stara_glowa->r;
+    nowa_glowa->c = stara_glowa->c+1;
+    nowa_glowa->nast = stara_glowa; 
+    stara_glowa->poprz = nowa_glowa;
+    nowa_glowa->poprz = NULL;
+    if (wszystko->kolejka % 2 == 1) //zaczyna waz 1
+    { //rusza sie pierwszy jak nieparzyste
+        wszystko->waz1=nowa_glowa;
+        
     }
-    else
-    {
-        waz *stara_glowa = snake;
-        waz *nowa_glowa = (waz *)malloc(sizeof(waz));
-        nowa_glowa->r = stara_glowa->r;
-        nowa_glowa->c = stara_glowa->c + 1;
-        nowa_glowa->nast = stara_glowa;
-        stara_glowa->poprz = nowa_glowa;
-        nowa_glowa->poprz = NULL;
-        if (wszystko->kolejka % 2 == 1) //zaczyna waz 1
-        {                               //rusza sie pierwszy jak nieparzyste
-            wszystko->waz1 = nowa_glowa;
-        }
-        if (wszystko->kolejka % 2 == 0)
-        { //rusza sie drugi jak parzyste
-            wszystko->waz2 = nowa_glowa;
-        }
-        usun_ostatni_element(wszystko, snake);
+    if (wszystko->kolejka % 2 == 0)
+    { //rusza sie drugi jak parzyste
+        wszystko->waz2=nowa_glowa;
+    }
+    }
+else{ 
+    waz*stara_glowa=snake;
+    waz*nowa_glowa = (waz*) malloc(sizeof(waz));
+    nowa_glowa->r = stara_glowa->r;
+    nowa_glowa->c = stara_glowa->c+1;
+    nowa_glowa->nast = stara_glowa; 
+    stara_glowa->poprz = nowa_glowa;
+    nowa_glowa->poprz = NULL; 
+    if (wszystko->kolejka % 2 == 1) //zaczyna waz 1
+    { //rusza sie pierwszy jak nieparzyste
+        wszystko->waz1=nowa_glowa;
+        
+    }
+    if (wszystko->kolejka % 2 == 0)
+    { //rusza sie drugi jak parzyste
+        wszystko->waz2=nowa_glowa;
+    }
+    usun_ostatni_element(wszystko,snake);
     }
 }
 
-waz *kopiuj_weza(waz *snake)
-{
+waz*kopiuj_weza(waz*snake){
     waz *zwrot = (waz *)malloc(sizeof(waz));
-    waz*glowa = snake;
-    waz*zaczep=zwrot;
-    if(dlugosc(snake)>1){ //mamy dlugiego weza
-        for(int i = 1; i<=dlugosc(snake);i++){
-        if(i==1){
-        zwrot->r=snake->r;
-        zwrot->c=snake->c;
-        zwrot->poprz=NULL;
-        zwrot->nast=NULL;
-        }
-        else{
-        waz *czlon = (waz *)malloc(sizeof(waz));
-        czlon->r=glowa->r;
-        czlon->c=glowa->c;
-        zaczep->nast=czlon;
-        printf("x:%d y:%d\n",czlon->r,czlon->c);
-        }
-        glowa=glowa->nast;
-        }
-    }  
-    else{ //waz jednoelementowy
-    zwrot->r=snake->r;
-    zwrot->c=snake->c;
-    zwrot->poprz=NULL;
-    zwrot->nast=NULL;
-    }
-return zwrot;
-}
-
-void pokaz_liste_wenza(waz *tesciowa)
-{
-    while (tesciowa != NULL)
-    {
-        printf("x-%d,y-%d\n", tesciowa->r, tesciowa->c);
-        tesciowa = tesciowa->nast;
-    }
-}
-
-baza *kopiuj_baze(baza *Sbaza)
-{
-    baza *zwrot = (baza *)malloc(sizeof(baza));
-    zwrot->waz1 = kopiuj_weza(Sbaza->waz1);
-    zwrot->waz2 = kopiuj_weza(Sbaza->waz2);
-    zwrot->kolejka = Sbaza->kolejka;
-    for (int i = 0; i < M; i++)
-        for (int j = 0; j < N; j++)
-            zwrot->plansza[i][j] = Sbaza->plansza[i][j];
+    memcpy(zwrot,snake, sizeof(waz));
     return zwrot;
+}
+
+void pokaz_liste_wenza(waz*tesciowa){
+    while(tesciowa!=NULL){
+    printf("x-%d,y-%d\n",tesciowa->r,tesciowa->c);
+    tesciowa=tesciowa->nast;
+    }
+
+}
+
+baza* kopiuj_baze(baza*Sbaza){
+baza *zwrot = (baza *)malloc(sizeof(baza));
+zwrot->waz1 = kopiuj_weza(Sbaza->waz1);
+zwrot->waz2 = kopiuj_weza(Sbaza->waz2);
+zwrot->kolejka = Sbaza -> kolejka;
+for (int i = 0; i < M; i++)
+        for (int j = 0; j < N; j++)
+        zwrot->plansza[i][j] = Sbaza->plansza[i][j];
+return zwrot;
 }
 
 void ruszanko(char kierunek, baza *Sbaza)
 {
-    baza *kopia = kopiuj_baze(Sbaza);
-    printf("lista w kopii waz1:\n");
+    baza*kopia=kopiuj_baze(Sbaza);
     pokaz_liste_wenza(kopia->waz1);
-    printf("lista w kopii waz2:\n");
     pokaz_liste_wenza(kopia->waz2);
-    printf("lista w baza waz1:\n");
-    pokaz_liste_wenza(Sbaza->waz1);
-    printf("lista w baza waz2:\n");
-    pokaz_liste_wenza(Sbaza->waz2);
 
     waz *teraz;
     if (Sbaza->kolejka % 2 == 1) //zaczyna waz 1
-    {                            //rusza sie pierwszy jak nieparzyste
+    { //rusza sie pierwszy jak nieparzyste
         teraz = Sbaza->waz1;
+        
     }
     if (Sbaza->kolejka % 2 == 0)
     { //rusza sie drugi jak parzyste
         teraz = Sbaza->waz2;
     }
 
-    if (kierunek == 'w')
-    {
-        gora(Sbaza, teraz);
-    }
-    else if (kierunek == 'a')
-    {
-        lewo(Sbaza, teraz);
-    }
-    else if (kierunek == 's')
-    {
-        dol(Sbaza, teraz);
-    }
-    else if (kierunek == 'd')
-    {
-        prawo(Sbaza, teraz);
-    }
+    if(kierunek=='w'){
+        gora(Sbaza,teraz);
+     }
+        else if(kierunek=='a'){
+        lewo(Sbaza,teraz);
+        }
+        else if(kierunek=='s'){ 
+       dol(Sbaza,teraz);
+        }
+        else if(kierunek=='d'){
+       prawo(Sbaza,teraz);
+        }
     uzupelnij_plansze_wenzami(Sbaza);
 }
+
+
+
+
+
+
+
+
 
 /*
 

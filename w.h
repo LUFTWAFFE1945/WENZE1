@@ -33,7 +33,7 @@ char plansza[M][N];
 
 
 void pokaz_liste_wenza(waz*tesciowa);
-waz * tworz_czlon(int r, int c);
+waz * tworz_glowe_poczatkowa(int r, int c);
 baza* tworzymy_baze();
 int dlugosc(waz*tesciowa);
 int ocena(baza*wszystko);

@@ -27,10 +27,11 @@ for(int p=1;p<1000;p++){//rusza sie pierwszy na p parz
     lista=generuj_liste_ruchow(wszystko,wszystko->waz2);
     pokaz_liste_ruchow(lista);
     wypisz(wszystko->plansza);
-
     }
     printf("przewaga :%d",ocena(wszystko));
 }
+
+
 
 zwolnij_baze(wszystko);
 printf("Main is done.\n");
