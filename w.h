@@ -43,15 +43,15 @@ void zwolnij_baze(baza*Sbaza);
 void wypisz(char plansza[M][N]);
 void uzupelnij_plansze_jedzeniem(baza*Sbaza);
 void uzupelnij_plansze_wenzami(baza*Sbaza);
-ruch* generuj_liste_ruchow(baza*wszystko,waz*snake);
+ruch* generuj_liste_ruchow(baza*wszystko);
 void usun_ostatni_element(baza*Sbaza,waz*snake);
 void pokaz_liste_ruchow(ruch*tesciowa);
 int gora(baza*wszystko,waz*snake);
 int dol(baza*wszystko,waz*snake);
 int lewo(baza*wszystko,waz*snake);
 int prawo(baza*wszystko,waz*snake);
-void ruszanko(char kierunek, baza *Sbaza);
-
+baza* ruszanko(char kierunek, baza *Sbaza);
+baza* kopiuj_baze(baza*Sbaza);
 
 
 

@@ -16,13 +16,23 @@ baza *tworzymy_baze()
     baza *Sbaza = (baza *)malloc(sizeof(baza));
     Sbaza->waz1 = tworz_glowe_poczatkowa(0, 0);
     Sbaza->waz2 = tworz_glowe_poczatkowa(M - 1, N - 1);
-    Sbaza->lista = generuj_liste_ruchow(Sbaza, Sbaza->waz1);
+    Sbaza->lista = generuj_liste_ruchow(Sbaza);
     Sbaza->kolejka = 1;
     return Sbaza;
 }
 
-ruch *generuj_liste_ruchow(baza*wszystko,waz *snake)
+ruch *generuj_liste_ruchow(baza*wszystko)
 {
+    waz*snake;
+    if (wszystko->kolejka % 2 == 1) //zaczyna waz 1
+    { //rusza sie pierwszy jak nieparzyste
+        snake=wszystko->waz1;
+        
+    }
+    if (wszystko->kolejka % 2 == 0)
+    { //rusza sie drugi jak parzyste
+        snake=wszystko->waz2;
+    }
     ruch *lista = (ruch *)malloc(sizeof(ruch));
     if (snake->r != 0)
     if(wszystko->plansza[snake->r-1][snake->c]!='X')
@@ -301,7 +311,7 @@ else{
 int dol(baza*wszystko,waz*snake){
 
 if(wszystko->plansza[snake->r+1][snake->c]=='*'){
-printf("+1 byczku\n");
+
     waz*stara_glowa=snake;
     waz*nowa_glowa = (waz*) malloc(sizeof(waz));
     nowa_glowa->r = stara_glowa->r+1;
@@ -343,7 +353,7 @@ else{
 int lewo(baza*wszystko,waz*snake){
 
 if(wszystko->plansza[snake->r][snake->c-1]=='*'){
-printf("+1 byczku\n");
+
     waz*stara_glowa=snake;
     waz*nowa_glowa = (waz*) malloc(sizeof(waz));
     nowa_glowa->r = stara_glowa->r;
@@ -384,7 +394,7 @@ else{
 int prawo(baza*wszystko,waz*snake){
 
 if(wszystko->plansza[snake->r][snake->c+1]=='*'){
-printf("+1 byczku\n");
+
     waz*stara_glowa=snake;
     waz*nowa_glowa = (waz*) malloc(sizeof(waz));
     nowa_glowa->r = stara_glowa->r;
@@ -426,13 +436,7 @@ else{
 waz*kopiuj_weza(waz*snake){
     waz *zwrot = (waz *)malloc(sizeof(waz));
     if(snake == NULL)
-        printf("BŁĄD! Kopiowana struktura jest pusta\n");
-    //zwrot=snake;
-    printf("przed memcpy\n");
     memcpy(zwrot,snake, sizeof(waz));
-    printf("po memcpy\n");
-    
-    printf("snake(c):%d, zwrot(c):%d \n",snake->c, zwrot->c);
     return zwrot;
 }
 
@@ -455,15 +459,9 @@ for (int i = 0; i < M; i++)
 return zwrot;
 }
 
-void ruszanko(char kierunek, baza *Sbaza)
+baza * ruszanko(char kierunek, baza *Sbaza)
 {
-    baza*kopia=kopiuj_baze(Sbaza);
-    printf("lista w kopii waz1:\n");
-
-    pokaz_liste_wenza(kopia->waz1);
-    printf("lista w kopii waz2:\n");
-    pokaz_liste_wenza(kopia->waz2);
-
+    
     waz *teraz;
     if (Sbaza->kolejka % 2 == 1) //zaczyna waz 1
     { //rusza sie pierwszy jak nieparzyste
@@ -488,6 +486,7 @@ void ruszanko(char kierunek, baza *Sbaza)
        prawo(Sbaza,teraz);
         }
     uzupelnij_plansze_wenzami(Sbaza);
+    return Sbaza;
 }
 
 
