@@ -36,7 +36,7 @@ void pokaz_liste_wenza(waz*tesciowa);
 waz * tworz_glowe_poczatkowa(int r, int c);
 baza* tworzymy_baze();
 int dlugosc(waz*tesciowa);
-int pokaz_wynik(baza*wszystko);
+int ocena(baza*wszystko);
 void zwolnij_liste(ruch*lista);
 void zwolnij_weza(waz*snake);
 void zwolnij_baze(baza*Sbaza);
