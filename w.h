@@ -24,12 +24,15 @@ typedef struct ruch{
 }ruch;
 
 typedef struct baza{
+int kolejka;
 ruch *lista;
 waz *waz1; 
 waz *waz2;
 char plansza[M][N];
 }baza;
 
+
+void pokaz_liste_wenza(waz*tesciowa);
 waz * tworz_glowe_poczatkowa(int r, int c);
 baza* tworzymy_baze();
 int dlugosc(waz*tesciowa);
@@ -40,12 +43,14 @@ void zwolnij_baze(baza*Sbaza);
 void wypisz(char plansza[M][N]);
 void uzupelnij_plansze_jedzeniem(baza*Sbaza);
 void uzupelnij_plansze_wenzami(baza*Sbaza);
-ruch* generuj_liste_ruchow(waz*snake);
+ruch* generuj_liste_ruchow(baza*wszystko,waz*snake);
 void usun_ostatni_element(baza*Sbaza,waz*snake);
 void pokaz_liste_ruchow(ruch*tesciowa);
-
-
-
+int gora(baza*wszystko,waz*snake);
+int dol(baza*wszystko,waz*snake);
+int lewo(baza*wszystko,waz*snake);
+int prawo(baza*wszystko,waz*snake);
+void ruszanko(char kierunek, baza *Sbaza);
 
 
 
